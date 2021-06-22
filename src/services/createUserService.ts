@@ -1,4 +1,6 @@
+import { getCustomRepository } from "typeorm";
 import { usersRepositories } from "../repositories/usersRepositories";
+import { TypeFormatFlags } from "typescript";
 
 
 interface IUserRequest {
@@ -7,9 +9,9 @@ interface IUserRequest {
     admin?: boolean;
 }
 
-class createUserService {
+class CreateUserService {
     async execute({ name, email, admin }: IUserRequest) {
-        const usersRepository = new usersRepositories();
+        const usersRepository = getCustomRepository(usersRepositories);
 
         if (!email) {
             throw new Error("Email incorrect");
@@ -36,4 +38,4 @@ class createUserService {
     }
 }
 
-export { createUserService }
+export { CreateUserService }
